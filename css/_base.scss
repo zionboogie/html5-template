@@ -133,6 +133,11 @@ html {
 	@include fontsize($fontsize);
 	font-family: $font-family;
 	background-color: $c-bg;
+	height: 100%;
+}
+body {
+	background-color: $c-bg;
+	height: 100%;
 }
 p {
 	margin: 0 auto $unit auto;
@@ -141,9 +146,6 @@ p {
 a {
 	// 通常時の文字色、:hover、:active、:visited、:focus
 	@include link-colors($c-anchor, $c-anchor-hover, #00a0e9, $c-anchor, $c-anchor-hover);
-}
-body {
-	background-color: $c-bg;
 }
 /* 固定幅フォント */
 pre,
