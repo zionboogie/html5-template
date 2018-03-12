@@ -1,6 +1,25 @@
 @charset "UTF-8";
 
 
+
+/*#########################################################
+
+基本設定
+
+#########################################################*/
+// 基本単位
+$unit: 1rem;
+// カラー
+$c-bg: #fff;
+$c-font: #252f39;
+$c-line: #959595;
+$c-anchor: #000;
+$c-anchor-hover: #959595;
+// フォント
+$fontsize: 17;
+$font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, "游ゴシック", YuGothic, "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, sans-serif;
+
+
 /*#########################################################
 
 mixin
@@ -11,23 +30,24 @@ mixin
 メディアクエリ
 =========================================================*/
 /*
-iPhone4: 320 × 480
+iPad Pro: 1024 × 1366
+iPad/iPad Mini: 768 × 1024
+iPhone7 Plus: 414 × 736
+iPhone7: 375 × 667
 iPhone5: 320 × 568
-iPhone6: 375 × 627
-iPhone6s: 414 × 736
-Nexus6: 414 × 659
 */
-$screen-xs: 480px;	// phone
-$screen-sm: 768px;	// tablet
-$screen-md: 992px;	// laptop
 $screen-lg: 1200px;	// descktop
-$screen-xs-min: $screen-xs;
-$screen-sm-min: $screen-sm;
-$screen-md-min: $screen-md;
+$screen-md: 1024x;	// laptop
+$screen-sm: 768px;	// tablet
+$screen-xs: 480px;	// phone
+
 $screen-lg-min: $screen-lg;
-$screen-xs-max: ($screen-sm-min - 1);
-$screen-sm-max: ($screen-md-min - 1);
 $screen-md-max: ($screen-lg-min - 1);
+$screen-md-min: $screen-md;
+$screen-sm-max: ($screen-md-min - 1);
+$screen-sm-min: $screen-sm;
+$screen-xs-max: ($screen-sm-min - 1);
+$screen-xs-min: $screen-xs;
 
 // メディアクエリ用MIXIN
 $breakpoints: (
@@ -74,61 +94,15 @@ $breakpoints: (
 	}
 }
 
-/*#########################################################
-
-基本設定
-
-#########################################################*/
-// 基本単位
-$unit: 1rem;
-// カラー
-$c-bg: #fff;
-$c-font: #252f39;
-$c-line: #959595;
-$c-anchor: #000;
-$c-anchor-hover: #959595;
-$c-btn: #fff;
-$c-btn-hover: #252f39;
-// フォント
-$fontsize: 17;
-$font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, "游ゴシック", YuGothic, "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, sans-serif;
-
-// ボタン用のプレースホルダ
-%btn {
-	display: inline-block;
-	border-radius: 2px;
-	padding: 8px 10px;
-	white-space: nowrap;
-	border: 1px solid $c-line;
-	text-align: center;
-	text-decoration: none;
-	@include transition(all 0.3s ease);
-	background-color: $c-btn;
-}
-%btn-hover {
-	border: 1px solid $c-btn-hover;
-	color: #fff;
-	background: $c-btn-hover;
-}
-
-// 横並びリスト
-%list-flex {
-	@include display(flex);
-	@include flex-flow(row wrap);
-	@include align-items(stretch);
-}
-
-
 
 /*#########################################################
 
-要素関連
+要素関連（リセットCSSの種類によっては不要）
 
 #########################################################*/
 *, *:before, *:after {
-	box-sizing: border-box;
+	// box-sizing: border-box;
 }
-
 html {
 	@include fontsize($fontsize);
 	font-family: $font-family;
@@ -140,66 +114,20 @@ body {
 	height: 100%;
 }
 p {
-	margin: 0 auto $unit auto;
+	margin: $unit auto;
 	line-height: 1.8;
 }
 a {
 	// 通常時の文字色、:hover、:active、:visited、:focus
-	@include link-colors($c-anchor, $c-anchor-hover, #00a0e9, $c-anchor, $c-anchor-hover);
-}
-/* 固定幅フォント */
-pre,
-code,
-kbd,
-samp tt {
-	// font-family: monospace;
-}
-pre {
-	white-space: pre;
-	white-space: pre-wrap;
-	word-wrap: break-word;
-}
-small {
-	font-size: 0.8rem;
-}
-/* subscript&superscript */
-sub,
-sup {
-	font-size: 0.8rem;
-	line-height: 0;
-	position: relative;
-	vertical-align: baseline;
-}
-sup {
-	top: -0.5em;
-}
-sub {
-	bottom: -0.25em;
-}
-code {}
-strong {
-	font-weight: bold;
-}
-strong.red {
-	color: #e00909;
-	font-weight: normal;
-}
-i {
-	font-weight: normal;
-	font-style: italic;
+	// @include link-colors($c-anchor, $c-anchor-hover, #00a0e9, $c-anchor, $c-anchor-hover);
 }
 input[type=submit] {
-	@extend %btn;
-}
-input[type=submit]:hover {
-	@extend %btn-hover;
 }
 input[type=text],
 input[type=email],
 input[type=url] {
-	padding: $unit*0.5;
+	// padding: $unit*0.5;
 }
 textarea {
-	padding: $unit*0.5;
+	// padding: $unit*0.5;
 }
-

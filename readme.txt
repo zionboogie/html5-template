@@ -49,12 +49,9 @@ IEの最新バージョンの標準モードで表示します。
 <meta property="fb:app_id" content="任意のID">
 ```
 
-## ノーマライズスタイル/リセットCSS
-テンプレートではnormalize.cssと、HTML5 DoctorのリセットCSSの両方を用意しています。
-要素の特徴を残しつつ、ブラウザ間の差異がなくなるようにしたい場合はnormalize.css、リストの黒丸などのスタイルもリセットしたい場合はHTML5 Doctorのreset.cssを使ってください。
+## CSS
 ``` html
-<link rel="stylesheet" href="css/normalize.css">
-<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/style.css">
 ```
 
 
@@ -106,3 +103,8 @@ IEの最新バージョンの標準モードで表示します。
 <footer class="pg-footer" role="contentinfo">
 </footer>
 ```
+
+
+## css/style.scss
+normalize.css、normalize.cssをカスタマイズしたress.css、HTML5 DoctorのリセットCSSの両方を用意しています。
+要素の特徴を残しつつ、ブラウザ間の差異がなくなるようにしたい場合はnormalize.cssかress.css、リストの黒丸などのスタイルもリセットしたい場合はHTML5 Doctorのreset.cssを使ってください。
