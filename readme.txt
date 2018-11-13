@@ -2,9 +2,6 @@
 min_template.html
 
 * header、navなどをあらかじめ用意
-min_layout_template.html
-
-* min_layout_template.htmlをベースにSass対応
 min_layout_sass_template.html
 
 * ie9以下にも対応する
@@ -54,12 +51,6 @@ IEの最新バージョンの標準モードで表示します。
 <link rel="stylesheet" href="css/style.css">
 ```
 
-
-## jQuery（CDN）
-``` html
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script> (window.jQuery || document .write('<script src="js/jquery-1.11.2.min.js"><\/script>')); </script>
-```
 
 ## IE8以下も対応したい場合
 ``` html
