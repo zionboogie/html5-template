@@ -8,14 +8,14 @@
 // 基本単位
 $unit: 1rem;
 // カラー
-$c-bg: #fff;
-$c-font: #252f39;
-$c-line: #959595;
-$c-anchor: #000;
-$c-anchor-hover: #959595;
+$c-bg: #fff;	// 背景色
+$c-font: #252f39;	// フォントカラー
+$c-line: #959595;	// 線の色
+$c-anchor: #000;	// リンク色
+$c-anchor-hover: #959595;	// ホバー時のリンク色
 // フォント
-$fontsize: 17;
-$font-family: "游ゴシック", YuGothic, "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "Helvetica Neue", Helvetica, Arial, "メイリオ", Meiryo, sans-serif;
+$fontsize: 17;	// フォントサイズ
+$font-family: "游ゴシック", YuGothic, "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "Helvetica Neue", Helvetica, Arial, "メイリオ", Meiryo, sans-serif;	// フォントの種類
 
 
 /*#########################################################
@@ -40,11 +40,11 @@ $screen-sm: 768px;	// tablet
 $screen-xs: 480px;	// phone
 
 $screen-lg-min: $screen-lg;
-$screen-md-max: ($screen-lg-min - 1);
+$screen-md-max: ($screen-lg - 1);
 $screen-md-min: $screen-md;
-$screen-sm-max: ($screen-md-min - 1);
+$screen-sm-max: ($screen-md - 1);
 $screen-sm-min: $screen-sm;
-$screen-xs-max: ($screen-sm-min - 1);
+$screen-xs-max: ($screen-sm - 1);
 $screen-xs-min: $screen-xs;
 
 // メディアクエリ用MIXIN
@@ -55,6 +55,7 @@ $breakpoints: (
 	'md-only': 'screen and (min-width: ' + $screen-md-min + ') and (max-width: ' + $screen-md-max + ')',
 	'md': 'screen and (min-width: ' + $screen-md-min + ')',
 	'lg': 'screen and (min-width: ' + $screen-lg-min + 'px)',
+	'lg-only': 'screen and (min-width: ' + $screen-lg-min + ') and (max-width: ' + $screen-lg-max + ')',
 ) !default;
 @mixin mq($breakpoint: md) {
 	@media #{map-get($breakpoints, $breakpoint)} {
