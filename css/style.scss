@@ -13,8 +13,8 @@
 =========================================================*/
 // @import "_reset.scss";	// デフォルトスタイルをリセット
 // @import "_normalize.scss";	// デフォルトのスタイルを定義
-@import "_ress.scss";	// normalize.cssを最近のWeb制作にあうようカスタマイズ
+@import "ress.scss";	// normalize.cssを最近のWeb制作にあうようカスタマイズ
 
 // 基本設定
-@import "_base.scss";
+@import "base.scss";
 
