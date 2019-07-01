@@ -13,9 +13,26 @@ $c-font: #252f39;	// フォントカラー
 $c-line: #959595;	// 線の色
 $c-anchor: #000;	// リンク色
 $c-anchor-hover: #959595;	// ホバー時のリンク色
+$c-anchor-active: #00a0e9; // アクティブ時のリンク色
+$c-anchor-visited: $c-anchor; // 訪問済み時のリンク色
+$c-anchor-focus: $c-anchor-hover; // フォーカス時のリンク色
+
 // フォント
-$fontsize: 17;	// フォントサイズ
+$fontsize: 16;	// フォントサイズ
 $font-family: "游ゴシック", YuGothic, "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "Helvetica Neue", Helvetica, Arial, "メイリオ", Meiryo, sans-serif;	// フォントの種類
+
+/* ========================================================
+mixin mq用の変数設定
+=========================================================*/
+/*
+iPhone5: 320 × 568
+iPhone7: 375 × 667(1334x750)
+iPhone7 Plus: 414 × 736(1920x1080)
+iPad/iPad Mini: 768 × 1024
+iPad Pro: 1024 × 1366
+*/
+$screen-sm-max: 768px;	// スマホ表示の最大値
+$screen-md-max: 1024px;	// タブレット表示の最大値
 
 
 /*#########################################################
@@ -25,50 +42,90 @@ mixin
 #########################################################*/
 
 /* ========================================================
-メディアクエリ
+メディアクエリ用Mixin
 =========================================================*/
-/*
-iPad Pro: 1024 × 1366
-iPad/iPad Mini: 768 × 1024
-iPhone7 Plus: 414 × 736
-iPhone7: 375 × 667
-iPhone5: 320 × 568
-*/
-$screen-lg: 1200px;	// descktop
-$screen-md: 1024x;	// laptop
-$screen-sm: 768px;	// tablet
-$screen-xs: 480px;	// phone
-
-$screen-lg-min: $screen-lg;
-$screen-md-max: ($screen-lg - 1);
-$screen-md-min: $screen-md;
-$screen-sm-max: ($screen-md - 1);
-$screen-sm-min: $screen-sm;
-$screen-xs-max: ($screen-sm - 1);
-$screen-xs-min: $screen-xs;
-
-// メディアクエリ用MIXIN
-$breakpoints: (
-	'xs': 'screen and (max-width: ' + $screen-xs-max + ')',
-	'sm-only': 'screen and (min-width: ' + $screen-sm-min + ') and (max-width: ' + $screen-sm-max + ')',
-	'sm': 'screen and (min-width: ' + $screen-sm-min + ')',
-	'md-only': 'screen and (min-width: ' + $screen-md-min + ') and (max-width: ' + $screen-md-max + ')',
-	'md': 'screen and (min-width: ' + $screen-md-min + ')',
-	'lg': 'screen and (min-width: ' + $screen-lg-min + 'px)',
-	'lg-only': 'screen and (min-width: ' + $screen-lg-min + ')',
-) !default;
 @mixin mq($breakpoint: md) {
 	@media #{map-get($breakpoints, $breakpoint)} {
 		@content;
 	}
 }
 
-// フォントサイズ
+/*
+ステップ1.モバイルファーストかデスクトップファーストかを選ぶ
+ステップ2.該当する設定を有効化、その他をコメントアウトする。
+ステップ3.選択したタイプにより、「▼モバイルファーストの例」、「▼デスクトップファーストの例」のどちらかを参考にブレイクポイントを設定する。
+→実際の設定は_base.scssではなく、インポート元で行う。
+*/
+
+// ステップ2：モバイルファースト用（デスクトップファーストの場合はコメントアウト）
+$breakpoints: (
+	// タブレット
+	'md': 'screen and (min-width: ' + $screen-sm-max + ') and (max-width: ' + ($screen-md-max - 1) + ')',
+	// デスクトップ
+	'lg': 'screen and (min-width: ' + $screen-md-max + ')',
+) !default;
+
+/*
+// ステップ3：▼モバイルファーストの例
+// メディアクエリのブロック外にベースになるCSSを書く。
+// モバイルファーストでは小さい画面サイズから順々に指定。
+main{
+	// デフォルト
+	background: yellow;
+	// タブレット
+	@include mq(md){
+		background: orange;
+	}
+	// デスクトップ
+	@include mq(sm){
+		background: red;
+	}
+}
+//------------------------------
+*/
+
+/*
+// ステップ2：デスクトップファースト用（モバイルファーストの場合はコメントアウト）
+$breakpoints: (
+	// タブレット
+	'md': 'screen and (min-width: ' + $screen-sm-max + ') and (max-width: ' + ($screen-md-max - 1) + ')',
+	// スマートフォン
+	'sm': 'screen and (max-width: ' + ($screen-sm-max - 1) + ')',
+) !default;
+*/
+
+/*
+// ステップ3：▼デスクトップファーストの例
+// メディアクエリのブロック外にベースになるCSSを書く。
+// デスクトップファーストでは大きい画面サイズから順々に指定。
+main{
+	// デフォルト
+	background: red;
+	// タブレット
+	@include mq(md){
+		background: orange;
+	}
+	// スマートフォン
+	@include mq(sm){
+		background: yellow;
+	}
+}
+//------------------------------
+*/
+
+
+/* ========================================================
+remを使ったfont-size指定
+$baseが16なのは、一般的なブラウザのfont-sizeの初期値が16pxのため↩
+=========================================================*/
 @mixin fontsize($size: 24, $base: 16) {
+	font-size: $size + px;
 	font-size: ($size / $base) * 1rem;
 }
 
-// リンクカラー
+/* ========================================================
+リンクカラーの設定
+=========================================================*/
 @mixin link-colors($normal, $hover: false, $active: false, $visited: false, $focus: false) {
 	color: $normal;
 	@if $visited {
@@ -99,34 +156,19 @@ $breakpoints: (
 要素関連（リセットCSSの種類によっては不要）
 
 #########################################################*/
-*, *:before, *:after {
-	// box-sizing: border-box;
-}
 html {
-	@include fontsize($fontsize);
-	font-family: $font-family;
-	background-color: $c-bg;
 	height: 100%;
 }
 body {
-	background-color: $c-bg;
 	height: 100%;
+	font-size: 16px; // モダンブラウザのデフォルト値
+	font-family: $font-family;
+	background-color: $c-bg;
 }
 p {
-	margin: $unit auto;
 	line-height: 1.8;
 }
 a {
 	// 通常時の文字色、:hover、:active、:visited、:focus
-	// @include link-colors($c-anchor, $c-anchor-hover, #00a0e9, $c-anchor, $c-anchor-hover);
-}
-input[type=submit] {
-}
-input[type=text],
-input[type=email],
-input[type=url] {
-	// padding: $unit*0.5;
-}
-textarea {
-	// padding: $unit*0.5;
+	@include link-colors($c-anchor, $c-anchor-hover, $c-anchor-active, $c-anchor, $c-anchor-hover);
 }
