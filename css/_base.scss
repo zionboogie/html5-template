@@ -7,6 +7,8 @@
 #########################################################*/
 // 基本単位
 $unit: 1rem;
+$mg: 10px;
+
 // カラー
 $c-bg: #fff;	// 背景色
 $c-font: #252f39;	// フォントカラー
@@ -25,14 +27,21 @@ $font-family: "游ゴシック", YuGothic, "ヒラギノ角ゴ ProN W3", "Hiragi
 mixin mq用の変数設定
 =========================================================*/
 /*
+▼iOSデバイス
 iPhone5: 320 × 568
 iPhone7: 375 × 667(1334x750)
 iPhone7 Plus: 414 × 736(1920x1080)
 iPad/iPad Mini: 768 × 1024
 iPad Pro: 1024 × 1366
+
+▼ブートストラップ
+xs： ～767px
+sm： 768～991px
+md： 992～1119px
+lg： 1120px～
 */
-$screen-sm-max: 768px;	// スマホ表示の最大値
-$screen-md-max: 1024px;	// タブレット表示の最大値
+$screen-sm-max: 767px;	// スマホ表示の最大値
+$screen-md-max: 1023px;	// タブレット表示の最大値
 
 
 /*#########################################################
@@ -44,7 +53,7 @@ mixin
 /* ========================================================
 メディアクエリ用Mixin
 =========================================================*/
-@mixin mq($breakpoint: md) {
+@mixin mq($breakpoint) {
 	@media #{map-get($breakpoints, $breakpoint)} {
 		@content;
 	}
@@ -60,9 +69,9 @@ mixin
 // ステップ2：モバイルファースト用（デスクトップファーストの場合はコメントアウト）
 $breakpoints: (
 	// タブレット
-	'md': 'screen and (min-width: ' + $screen-sm-max + ') and (max-width: ' + ($screen-md-max - 1) + ')',
+	'md': 'screen and (min-width: ' + ($screen-sm-max + 1) + ') and (max-width: ' + ($screen-md-max) + ')',
 	// デスクトップ
-	'lg': 'screen and (min-width: ' + $screen-md-max + ')',
+	'lg': 'screen and (min-width: ' + ($screen-sm-max + 1) + ')',
 ) !default;
 
 /*
@@ -88,10 +97,11 @@ main{
 // ステップ2：デスクトップファースト用（モバイルファーストの場合はコメントアウト）
 $breakpoints: (
 	// タブレット
-	'md': 'screen and (min-width: ' + $screen-sm-max + ') and (max-width: ' + ($screen-md-max - 1) + ')',
+	'md': 'screen and (min-width: ' + ($screen-sm-max + 1) + ') and (max-width: ' + $screen-md-max + ')',
 	// スマートフォン
-	'sm': 'screen and (max-width: ' + ($screen-sm-max - 1) + ')',
+	'sm': 'screen and (max-width: ' + $screen-sm-max + ')',
 ) !default;
+
 */
 
 /*
@@ -171,4 +181,5 @@ p {
 a {
 	// 通常時の文字色、:hover、:active、:visited、:focus
 	@include link-colors($c-anchor, $c-anchor-hover, $c-anchor-active, $c-anchor, $c-anchor-hover);
+	transition: all 0.5s ease-out;
 }
